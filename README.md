@@ -1,3 +1,3 @@
 # RDM
 
-##fffsdsdfsdfsdfsdfs
+##커리큘럼
