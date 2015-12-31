@@ -26,6 +26,6 @@
 | 6 |9/22|5. 군집분석 |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htdGhacUpIMlFMOGc/view?usp=sharing) |
 |   |    |(실습) R실습-군집분석|김성근|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/DM_CH7.md) |
 | 7 |9/29|6. 특이 데이터 탐색 |이의령|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htYk1QS3phdG5MWGc/view?usp=sharing) |
-|   |    |(실습) 원달려 환율예측 |조희주|[]()|
+|   |    |(실습) 원달려 환율예측 |조희주|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/won_dol.zip)|
 
 
