@@ -13,17 +13,17 @@
 
 | 회차  | 일시   | 내용                                  | 발표자  |              발표자료                    |
 | ----- |:------:| :-------------------------------------|:-------:|:----------------------------------------: |
-| 1 |8/18|1. 탐색적 데이터 분석|김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htM2N3aEN6czdwYVE/view) 
+| 1 |8/18|1. 탐색적 데이터 분석              |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htM2N3aEN6czdwYVE/view) 
 |   |    |(실습) 탐색적 데이터 분석|김성근|[발표자료]() |
-| 2 |8/25|(교재1) 2. 연관분석 |오진섭|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htQ1ZTekV2QXluRFU/view) |
+| 2 |8/25|2. 연관분석 |오진섭|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htQ1ZTekV2QXluRFU/view) |
 |   |    |(실습) R실습-연관분석|오진섭|[]() |
-| 3 |9/1|(교재1) 3. 분류분석-1 |정한웅|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htcGtDMFhaQjc3b2c/view) |
+| 3 |9/1|3. 분류분석-1 |정한웅|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htcGtDMFhaQjc3b2c/view) |
 |   |    |(실습) 자동차 이미지 식별|채연식|[]() |
-| 4 |9/8|(교재1) 4. 분류분석-2 |손완주|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htM0hzUEVraGl6SWs/view) |
+| 4 |9/8|4. 분류분석-2 |손완주|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htM0hzUEVraGl6SWs/view) |
 |   |    |(실습) R실습-분류분석-2|김성근|[]() |
-| 5 |9/15|(교재1) 5. 군집분석 |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htdGhacUpIMlFMOGc/view) |
+| 5 |9/15|5. 군집분석 |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htdGhacUpIMlFMOGc/view) |
 |   |    |(실습) R실습-군집분석|김성근|[]() |
-| 6 |9/22|(교재1) 6. 특이 데이터 탐색 |이의령|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htYk1QS3phdG5MWGc/view) |
+| 6 |9/22|6. 특이 데이터 탐색 |이의령|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htYk1QS3phdG5MWGc/view) |
 |   |    |(실습) 원달려 환율예측 |조희주|[]()|
 
 
