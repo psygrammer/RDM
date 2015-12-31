@@ -1,0 +1,163 @@
+---
+title: "DMR-2.1"
+author: "ksg"
+date: "2015년 8월 21일"
+output: html_document
+---
+
+##1)데이터 전처리
+###dplyr 패키지
+  - dplyr 패키지는 C++로 작성되어 매우 빠르다
+  - MySQL 등을 지원한다
+  - 다양한 기능은 스스로 찾아서 학습해라
+
+###dplyr, hflights 설치
+```{r}
+#install.packages(c("dplyr", "hflights"))
+library(dplyr)
+library(hflights)
+```
+
+###데이터 확인
+```{r}
+dim(hflights)
+head(hflights)
+hflights_df<-tbl_df(hflights) #화면에 맞게 일부만 보여줌
+hflights_df
+```
+
+###dplyr패키지를 활용한 데이터 추출(1월, 1,2월)
+ 
+  - filter함수 : AND조건문은 (콤마) 또는 &, OR조건문은 |  
+```{r}
+filter(hflights_df, Month==1, DayofMonth==1)
+filter(hflights_df, Month==1 | Month==2)
+```
+ 
+  - arrange함수 : 데이터 정렬(내림차순은 desc인수)  
+```{r}
+arrange(hflights_df, ArrDelay, Month, Year)
+arrange(hflights_df, desc(Month))
+```
+
+###select함수와 mutate함수를 이용한 데이터 핸들링
+  
+  - select함수는 collumn추출
+  - 여러개 collumn 추출시 (,)콤마, (:)콜론,(-)마이너스활용
+```{r}
+select(hflights_df, Year, Month, DayOfWeek)
+select(hflights_df, Year:DayOfWeek)
+select(hflights_df, -(Year:DayOfWeek))
+```  
+  
+  - mutate함수는 collumn추가
+  - 유사한 함수로는 transform함수가 있음
+```{r}
+mutate(hflights_df, gain=ArrDelay-DepDelay, gain_per_hour=gain/(AirTime/60))
+```  
+
+  - 평균지연시간 계산 (spldf보다 간편)
+```{r}
+summarise(hflights_df, delay=mean(DepDelay, na.rm=TRUE))
+```
+
+  - group_by 함수는 지정한 열별로 그룹화된 결과산출
+  - 비행편수 20회, 평균 비행거리 2000마일 이상인 항공사별 연착시간 계산
+```{r}
+planes<-group_by(hflights_df, TailNum)
+delay<-summarise(planes, 
+                 count=n(), 
+                 dist=mean(Distance, na.rm=TRUE), 
+                 delay=mean(ArrDelay,na.rm=TRUE))
+delay
+delay<-filter(delay, count>20, dist<2000) 
+delay
+```
+
+  - ggplot 그리기
+```{r}
+library(ggplot2)
+delayplot<-ggplot(delay, aes(dist,delay))
+delayplot2<-delayplot+geom_point(aes(size=count),alpha=1/2) 
+delayplot3<-delayplot2+geom_smooth()+scale_size_area()
+delayplot3
+```
+
+  - dplyr 패키지 chain기능 활용
+  - 그냥수행
+```{r}
+a1<-group_by(hflights, Year, Month, DayofMonth)
+a2<-select(a1, Year:DayofMonth, ArrDelay, DepDelay) 
+a3<-summarise(a2, arr=mean(ArrDelay, na.rm=TRUE), 
+              dep=mean(DepDelay, na.rm=TRUE))
+a4<-filter(a3, arr>30 | dep>30)
+```
+  
+  - %.% 활용 각각 단위를 한번에 수행
+  - 첫번째 파라미터에 데이터프레임 지정 후 이를 생략
+  - 앞의 결과를 뒤에오는 함수의 입력값으로 사요
+```{r}
+hflights_df %.% 
+group_by(Year, Month, DayofMonth) %.%
+select(Year:DayofMonth, ArrDelay, DepDelay) %.%  
+summarise(arr=mean(ArrDelay, na.rm=TRUE), 
+          dep=mean(DepDelay, na.rm=TRUE)) %.% 
+filter(arr>30 | dep>30)
+```
+
+  - %.% 활용 활용 각각 단위를 한번에 수행
+```{r}
+hflights_df %.% 
+group_by(Year, Month, DayofMonth) %.%
+select(Year:DayofMonth, ArrDelay, DepDelay) %.%  
+summarise(arr=mean(ArrDelay, na.rm=TRUE), 
+          dep=mean(DepDelay, na.rm=TRUE)) %.% 
+filter(arr>30 | dep>30)
+```
+  
+  - chain함수 활용
+```{r}
+chain(hflights,
+      group_by(Year, Month, DayofMonth),
+      select(Year:DayofMonth, ArrDelay, DepDelay),
+      summarise(arr=mean(ArrDelay, na.rm=TRUE), 
+                dep=mean(DepDelay, na.rm=TRUE)),
+      filter(arr>30 | dep>30))
+```
+
+###sql을 동적으로 활용하는법(뭔지 몰라서패쓰27p)
+
+##2) 클러스터링
+###statics package의 kmeans
+###cluster package
+  - vote.repub : 데이터 공화당 대통령후보 각 주별 투표율 
+  - 주요함수 agnes, as.dendrogram
+  - agnes : 6가지 클러스터링 method 제공
+  - average, single, complete, ward, weighted, flexible
+  - 기본방법은 average / 데이터가 standaized된경우 stand=TRUE
+  - daizy 함수로 비유사성 계산된 경우로 dissmilarity matrix가 사용된 경우 무시됨
+```{r}
+#install.packages("cluster"")
+library(cluster)
+head(votes.repub)
+agn1<-agnes(votes.repub, metric="manhattan", stand=TRUE)
+agn1
+plot(agn1) ; agn1
+```
+
+```{r}
+par(mfrow=c(2,2))
+agn2<-agnes(daisy(votes.repub), diss=TRUE, method="complete")
+plot(agn2) 
+agnS<-agnes(votes.repub, method="flexible", par.met=0.6)
+plot(agnS) 
+par(mfrow=c(1,1))
+```
+
+  - as.dendrogram은 트리형식의 일반적 모양을 hierarchical clustering과 classification tree에제공해 동일한 형태의 plot이 가능하게 해줌
+```{r}
+d2<-as.dendrogram(agn2) 
+d2[[1]]
+d2[[1]][[1]]
+str(d2)
+```  

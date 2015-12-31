@@ -1,0 +1,190 @@
+---
+title: "DM_ch2"
+author: "ksg"
+date: "2015년 8월 17일"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+###데이터 import
+```{r}
+ex<- read.csv("http://goo.gl/qw303p")
+head(ex)
+str(ex)
+```
+
+###막대그림
+```{r}
+A<-table(ex$Segment)
+barplot(A)
+```
+
+###원그림
+```{r}
+pie(A)
+```
+
+###히스토그램(도수분포표)
+```{r}
+hist(ex$age)
+```
+
+###산점도
+```{r}
+plot(ex$income, ex$age)
+```
+
+
+###산점도 행렬
+```{r}
+head(iris)
+pairs(iris[1:4])
+```
+
+###모자이크 그림
+```{r}
+mo<-with(ex, table(Segment, ownHome))
+mosaicplot(mo)
+```
+
+###시계열 그림
+```{r}
+ts.data<-rnorm(52,10,4)
+ts<-ts(ts.data, start=2015, fre=52)
+plot(ts)
+```
+
+
+###연습문제1 
+
+  - 데이터 생성
+```{r}
+life<-sample(c(1,2,3), size=25, replace=TRUE,prob=NULL)
+school<-sample(c(1,2,3), size=25, replace=TRUE,prob=NULL)
+ex1<-data.frame(life,school)
+ex1
+```
+
+  - 변수의 속성 분류
+```{r}
+ex1$life<-factor(ex1$life, labels = c('고소득', '보통','저소득'))
+ex1$school<-factor(ex1$school, labels = c('중졸이하', '고졸','대졸이상'))
+ex1
+```
+
+  - 막대그래프 원그래프
+```{r}
+par(mfrow=c(2,2))
+bar_life<-table(ex1$life)
+barplot(bar_life)
+pie(bar_life)
+
+bar_sch<-table(ex1$school)
+barplot(bar_sch)
+pie(bar_sch)
+par(mfrow=c(1,1))
+```
+
+  - 교차표 생성
+```{r}
+table(ex1$life, ex1$school)
+```
+
+  - 유클리드 제곱 거리(상위10명)
+```{r}
+life<-sample(c(1,2,3), size=10, replace=TRUE,prob=NULL)
+school<-sample(c(1,2,3), size=10, replace=TRUE,prob=NULL)
+ex1<-matrix(life, school, nrow=10, ncol=2)
+ex1_U<-dist(ex1)
+ex1_U
+```
+
+### 연습문제 2 
+
+  - 데이터생성
+```{r}
+a<-round(rnorm(31,28,4))
+```
+
+
+  - 히스토그램, 박스플랏
+```{r}
+hist(a)
+boxplot(a)
+```
+
+  - 통계량
+```{r}
+library(psych)
+describe(a)
+```
+
+###연습문제 4 
+  - 데이터 생성
+```{r}
+sex<-sample(c("남","여"), size=10, replace=TRUE,prob=NULL)
+X<-round(rnorm(10, 65,4))
+Y<-round(rnorm(10, 6,3))
+Z<-data.frame(sex,X,Y)
+```
+
+ - 산점도, 통계량
+```{r}
+plot(Z$X,Z$Y)
+mean(X); sd(X)
+mean(Y); sd(Y)
+```
+
+ - 유클리드 제곱거리
+```{r}
+taja<-matrix(X,Y, nrow=10, ncol=2)
+taja_dist<-dist(taja)
+taja_dist
+```
+
+###연습문제 5 
+
+  - 데이터생성
+```{r}
+rev1<-c(210,235,280,350,355,360,450,560,600,620)
+rev2<-c(10,11,25,20,18,20,30,40,45,40)
+```
+
+  - 데이터생성
+```{r}
+rev<-ts(rev1, start=1985, end=1994, freq=1)
+rev_2<-ts(rev2, start=1985, end=1994, freq=1)
+```
+
+  - 시계열 선그래프
+```{r}
+plot(rev)
+plot(rev_2)
+```
+
+
+### 연습문제 7 
+  - 데이터 생성
+```{r}
+age<-round(rnorm(10,30,15))
+buy<-rbinom(10,1,0.5)
+data<-data.frame(age, buy)
+data$buy <- factor(data$buy, labels=c("Y","N"))
+data
+```
+
+  - 나이 별 변수생성
+```{r}
+data$age1 <- ifelse(data$age >= 30, "30살이상", "30살미만")
+data$age2 <- ifelse(data$age >= 40, "40살이상", "40살미만")
+data
+```
+
+  - 테이블 생성
+```{r}
+table(data$buy,data$age1)
+table(data$buy,data$age2)
+```
+
+

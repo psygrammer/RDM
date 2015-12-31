@@ -1,0 +1,101 @@
+---
+title: "ch.7"
+author: "ksg"
+date: "2015년 10월 13일"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+
+##계층적 군집모형
+```{r}
+#계층적 군집모형
+x1<-c(1,2,4,4,5)
+x2<-c(5,4,6,3,3)
+hcdata<-data.frame(x1,x2)
+```
+
+```{r}
+hcl<-hclust(dist(hcdata)^2, method='single')  
+#최단연결법 single / 최장complete / 평균average/ / 중심centroid / 와드ward
+hcl
+```
+
+```{r}
+plot(hcl)
+plot(hcl, hang=-1)
+```
+
+## K-평균군집모형
+```{r}
+library(graphics)
+x1<-c(3,-1,-2,1)
+x2<-c(4,2,-3,-2)
+kmdata<-data.frame(x1,x2)
+```
+
+```{r}
+kcl<-kmeans(kmdata, 2)
+plot(kmdata, col=kcl$cluster)
+```
+
+
+
+## 퍼지군집모형
+```{r}
+library('cluster')
+x1<-c(1,2,4,4,5,2,3,3)
+x2<-c(5,4,6,3,3,3,3,4)
+fuzdata<-data.frame(x1,x2)
+```
+
+```{r}
+fcl<-fanny(fuzdata,2)
+summary(fcl)
+plot(fcl)
+```
+
+## 혼합분포 군집모형
+```{r}
+n1<-rnorm(50,0,2)
+n2<-rnorm(50,8,2)
+mixdata<-c(n1,n2)
+hist(mixdata, breaks=20, main='혼합분포 히스토그램')
+```
+
+###EM알고리즘 만들기 실습
+```{r}
+ntot=100  #전체 데이터수
+theta1=-1 ; sigma1=2 #집단 1 초기값 : 평균 -1, 표준편차 2  
+theta2=7 ; sigma2=2 #집단 2 초기값 : 평균 -7, 표준편차 2
+iter=10 #알고리즘 반복횟수
+theta1hat=0 #집단 1 평균 추정값 벡터
+theta2hat=0 #집단 2 평균 추정값 벡터
+```
+
+```{r}
+for(j in 1:iter) {
+  p1<-0
+  p2<-0
+  bayes1<-0
+  bayes2<-0
+  thetaiter1<-0
+  thetaiter2<-0
+  
+  for(i in 1:ntot) {
+    p1[i] <- (1-pnorm(mixdata[i], theta1, sigma1))
+    p2[i] <- (pnorm(mixdata[i], theta2, sigma2))
+    bayes1[i] <- 0.5*p1[i]/(0.5*p1[i]+0.5*p2[i])
+    bayes2[i] <- 0.5*p2[i]/(0.5*p1[i]+0.5*p2[i])
+  }
+  theta1hat[j] <- sum(theta1) / sum(bayes1)
+  theta2hat[j] <- sum(theta2) / sum(bayes2)
+  theta1 <- theta1hat[j]
+  theta2 <- theta2hat[j]
+}
+result<-cbind(theta1hat, theta2hat)
+```
+```{r}
+result
+```

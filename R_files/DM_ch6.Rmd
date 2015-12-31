@@ -1,0 +1,136 @@
+---
+title: "ch6_practice"
+author: "ksg"
+date: "2015년 10월 6일"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+###인접이웃 분류모형
+
+  - 데이터생성
+```{r}
+#install.packages("class")
+library(class)
+age<-scale(rnorm(40, 30, 5))
+income<-sample(c(200,300,400,500),size=40,replace=TRUE, prob=NULL)
+purchase<-sample(c('구매', '비구매'),size=40,replace=TRUE, prob=NULL)
+knndata<-data.frame(age,income,purchase)
+```
+
+  - 3-인접이웃분류 모형
+```{r}
+attach(knndata)
+train<-knndata[1:20, c(1,2)]
+test<-knndata[1:20, c(1,2)]
+group<-purchase[1:20]
+knnpred<-knn(train, test, group, k = 3, prob = TRUE)
+knnpred
+y=table(knnpred, group)
+y
+```
+
+###신경망 모형
+  - 데이터생성 
+```{r}
+#install.packages("nnet")
+library(nnet)
+x1<-c(0,0,0,0,1,1,1,1)
+x2<-c(0,0,1,1,0,0,1,1)
+x3<-c(0,1,0,1,0,1,0,1)
+y<-c(-1,-1,-1,+1,-1,+1,+1,+1)
+nnetdata<-data.frame(x1,x2,x3,y)
+```
+
+  - 신경망 분류모형 
+```{r}
+attach(nnetdata)
+train = nnetdata[1:8,]
+test = nnetdata[1:8,]
+train.nnet = nnet(y~x1+x2+x3, data=train, size=2, rang=0.1, decay=5e-4, maxit=100)
+```
+  
+  - 예측모델의 관찰값을 0.1기준으로 분류 
+```{r}
+predict(train.nnet, test)
+nnetpred = (predict(train.nnet, test) >= 0.01)
+z = table(nnetpred, y)
+z
+```
+
+### 지지벡터기계 모형
+  - 데이터
+```{r}
+x1<-c(25,34,26,28,21,31,36,20)
+x2<-c(150,220,210,250,100,220,300,100)
+y<-c(-1,+1,-1,+1,-1,+1,+1,-1)
+svmdata<-data.frame(x1,x2,y)
+```
+
+  - 지지벡터기계 모형 생성
+```{r}
+#install.packages("e1071")
+library(e1071)
+svmdata
+attach(svmdata)
+
+train = svmdata[1:8,]
+test = svmdata[1:8,]
+train.svm = svm(y~x1+x2, type="C-classification", data=train)
+train.svm
+```
+
+  - 집단분류
+```{r}
+svmpred = predict(train.svm, test)
+svmpred
+z = table(svmpred ,y)
+z
+```
+
+  - 시각화
+```{r}
+plot(x1,x2,pch=y)
+abline(500,-10)
+```
+
+###아다부스팅 앙상블모형
+
+  - 패키지설치
+  - 데이터 : iris 데이터에서 3종의 꽃중 1종 없애고 2종만 남김
+```{r}
+#install.packages('ada')
+library(ada)
+head(iris)
+iris<-iris[iris$Species!="setosa",]
+```
+
+ - 100개 데이터중 60%는 훈련용 나머지40%는 시험용으로 사용
+```{r}
+n<-dim(iris)[1]
+n
+
+trind<-sample(1:n, floor(.6*n), FALSE) #training sample 
+trind
+
+teind<-setdiff(1:n,trind) #test sample 
+teind
+
+iris[,5]<-as.factor((levels(iris[,5])[2:3])[as.numeric(iris[,5])-1])
+```
+
+  - 60개 훈련용 데이터 trind를 이용해 아다부스팅 앙상블 모형생성
+  - 시험용데이터에 적용
+```{r}
+gdis<-ada(Species ~ . , data=iris[trind,], iter=20, nu=1, type="discrete")
+gdis
+```
+
+  - 생성된 객체로 분류오류, 변주중요성, 중요변수 시각화
+```{r}
+gdis=addtest(gdis, iris[teind,-5], iris[teind,5])
+plot(gdis, TRUE, TRUE) #분류오류에 대한 그리
+varplot(gdis) #변수의 중요성 그림
+pairs(gdis, iris[trind, -5], maxvar=2) #중요변수에 대한 산점도림
+```
