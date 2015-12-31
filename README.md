@@ -13,8 +13,8 @@
 
 | 회차  | 일시   | 내용                                  | 발표자  |              발표자료                    |
 | ----- |:------:| :-------------------------------------|:-------:|:----------------------------------------: |
-| 1 |8/18|(보강) R기초 |김성근|[]() 
-|   |    |(보강) R데이터핸들링|김성근|[]() |
+| 1 |8/18|(보강) R기초 |김성근|[발표자료](https://github.com/kimsungguen/R_files/blob/master/r_first.Rmd) 
+|   |    |(보강) R데이터핸들링|김성근|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/1_handle_cluster.md) |
 | 2 |8/25|1. 탐색적 데이터 분석|김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htMWllUzA5eVpSU1U/view?usp=sharing) 
 |   |    |(실습) 탐색적 데이터 분석|김성근|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/1.DM_CH2.md) |
 | 3 |9/1|2. 연관분석 |오진섭|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htQ1ZTekV2QXluRFU/view?usp=sharing) |
