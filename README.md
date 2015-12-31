@@ -13,17 +13,19 @@
 
 | 회차  | 일시   | 내용                                  | 발표자  |              발표자료                    |
 | ----- |:------:| :-------------------------------------|:-------:|:----------------------------------------: |
-| 1 |8/18|1. 탐색적 데이터 분석              |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htMWllUzA5eVpSU1U/view?usp=sharing) 
+| 1 |8/18|(보강) R기초 |김성근|[]() 
+|   |    |(보강) R데이터핸들링|김성근|[]() |
+| 2 |8/25|1. 탐색적 데이터 분석|김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htMWllUzA5eVpSU1U/view?usp=sharing) 
 |   |    |(실습) 탐색적 데이터 분석|김성근|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/1.DM_CH2.md) |
-| 2 |8/25|2. 연관분석 |오진섭|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htQ1ZTekV2QXluRFU/view?usp=sharing) |
+| 3 |9/1|2. 연관분석 |오진섭|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htQ1ZTekV2QXluRFU/view?usp=sharing) |
 |   |    |(실습) R실습-연관분석|오진섭|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/2.asso.md) |
-| 3 |9/1|3. 분류분석-1 |정한웅|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htcGtDMFhaQjc3b2c/view?usp=sharing) |
+| 4 |9/8|3. 분류분석-1 |정한웅|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htcGtDMFhaQjc3b2c/view?usp=sharing) |
 |   |    |(실습) 자동차 이미지 식별|채연식|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htX2gzRVVjdjYwQVU/view?usp=sharing) |
-| 4 |9/8|4. 분류분석-2 |손완주|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htM0hzUEVraGl6SWs/view?usp=sharing) |
+| 5 |9/15|4. 분류분석-2 |손완주|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htM0hzUEVraGl6SWs/view?usp=sharing) |
 |   |    |(실습) R실습-분류분석-2|김성근|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/DM_ch6.md) |
-| 5 |9/15|5. 군집분석 |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htdGhacUpIMlFMOGc/view?usp=sharing) |
+| 6 |9/22|5. 군집분석 |김성근|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htdGhacUpIMlFMOGc/view?usp=sharing) |
 |   |    |(실습) R실습-군집분석|김성근|[발표자료](https://github.com/psygrammer/RDM/blob/master/R_files/DM_CH7.md) |
-| 6 |9/22|6. 특이 데이터 탐색 |이의령|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htYk1QS3phdG5MWGc/view?usp=sharing) |
+| 7 |9/29|6. 특이 데이터 탐색 |이의령|[발표자료](https://drive.google.com/file/d/0B_Ekt7icI0htYk1QS3phdG5MWGc/view?usp=sharing) |
 |   |    |(실습) 원달려 환율예측 |조희주|[]()|
 
 
